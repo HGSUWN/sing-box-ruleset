@@ -1,1 +1,2 @@
-- "https://raw.github.com/DustinWin/ruleset_geodata/sing-box-ruleset/telegramip.srs"
+geosite:
+  - "https://raw.github.com/DustinWin/ruleset_geodata/sing-box-ruleset/telegramip.srs"
