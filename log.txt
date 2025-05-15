@@ -1,5 +1,5 @@
-2025-05-15 06:29:07,450 - INFO - telegram 规则整理完成:
-2025-05-15 06:29:07,450 - INFO - 类型: geosite
+2025-05-15 06:30:15,244 - INFO - telegram 规则整理完成:
+2025-05-15 06:30:15,244 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 12
 规则分析:
@@ -9,8 +9,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 06:29:07,655 - INFO - bilibili 规则整理完成:
-2025-05-15 06:29:07,655 - INFO - 类型: geosite
+2025-05-15 06:30:15,339 - INFO - bilibili 规则整理完成:
+2025-05-15 06:30:15,339 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 1
 剩余规则总数: 49
 规则分析:
@@ -20,8 +20,8 @@ domain 被过滤掉的条目数量: 1
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 06:29:07,810 - INFO - nsfw 规则整理完成:
-2025-05-15 06:29:07,810 - INFO - 类型: geosite
+2025-05-15 06:30:15,421 - INFO - nsfw 规则整理完成:
+2025-05-15 06:30:15,421 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 6528
 规则分析:
@@ -31,8 +31,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 136
 --------------------------------------------------
-2025-05-15 06:29:08,363 - INFO - pixiv 规则整理完成:
-2025-05-15 06:29:08,363 - INFO - 类型: geosite
+2025-05-15 06:30:15,511 - INFO - pixiv 规则整理完成:
+2025-05-15 06:30:15,511 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 11
 规则分析:
@@ -42,8 +42,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 06:29:16,856 - INFO - cn 规则整理完成:
-2025-05-15 06:29:16,856 - INFO - 类型: geosite
+2025-05-15 06:30:23,000 - INFO - cn 规则整理完成:
+2025-05-15 06:30:23,000 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 137
 剩余规则总数: 125927
 规则分析:
@@ -53,7 +53,7 @@ domain 被过滤掉的条目数量: 137
   process_name 条目数: 0
   domain_regex 条目数: 26
 --------------------------------------------------
-2025-05-15 06:29:16,856 - INFO - 类型: geoip
+2025-05-15 06:30:23,000 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 21741
 规则分析:
@@ -63,8 +63,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 06:29:17,095 - INFO - google 规则整理完成:
-2025-05-15 06:29:17,095 - INFO - 类型: geoip
+2025-05-15 06:30:23,106 - INFO - google 规则整理完成:
+2025-05-15 06:30:23,106 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 3557
 规则分析:
@@ -74,17 +74,30 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 06:29:18,293 - INFO - 转换完成: ./rule/singbox/geosite-bilibili.json → ./rule/surge/geosite-bilibili.list, ./rule/shadowrocket/geosite-bilibili.list
-2025-05-15 06:29:18,295 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
-2025-05-15 06:29:18,295 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
-2025-05-15 06:29:18,298 - INFO - 转换完成: ./rule/singbox/geosite-nsfw.json → ./rule/surge/geosite-nsfw.list, ./rule/shadowrocket/geosite-nsfw.list
-2025-05-15 06:29:18,349 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
-2025-05-15 06:29:18,352 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
-2025-05-15 06:29:18,362 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
-2025-05-15 06:29:19,699 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
-2025-05-15 06:29:19,789 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-nsfw.mrs
-2025-05-15 06:29:19,817 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-bilibili.mrs
-2025-05-15 06:29:19,870 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
-2025-05-15 06:29:19,898 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
-2025-05-15 06:29:19,909 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
-2025-05-15 06:29:20,089 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
+2025-05-15 06:30:23,219 - INFO - youtube 规则整理完成:
+2025-05-15 06:30:23,219 - INFO - 类型: geosite
+domain 被过滤掉的条目数量: 0
+剩余规则总数: 176
+规则分析:
+  domain 条目数: 0
+  domain_suffix 条目数: 176
+  ip_cidr 条目数: 0
+  process_name 条目数: 0
+  domain_regex 条目数: 0
+--------------------------------------------------
+2025-05-15 06:30:24,462 - INFO - 转换完成: ./rule/singbox/geosite-bilibili.json → ./rule/surge/geosite-bilibili.list, ./rule/shadowrocket/geosite-bilibili.list
+2025-05-15 06:30:24,464 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
+2025-05-15 06:30:24,465 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
+2025-05-15 06:30:24,468 - INFO - 转换完成: ./rule/singbox/geosite-nsfw.json → ./rule/surge/geosite-nsfw.list, ./rule/shadowrocket/geosite-nsfw.list
+2025-05-15 06:30:24,468 - INFO - 转换完成: ./rule/singbox/geosite-youtube.json → ./rule/surge/geosite-youtube.list, ./rule/shadowrocket/geosite-youtube.list
+2025-05-15 06:30:24,519 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
+2025-05-15 06:30:24,523 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
+2025-05-15 06:30:24,532 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
+2025-05-15 06:30:25,913 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
+2025-05-15 06:30:26,007 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-nsfw.mrs
+2025-05-15 06:30:26,037 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-bilibili.mrs
+2025-05-15 06:30:26,096 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
+2025-05-15 06:30:26,126 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
+2025-05-15 06:30:26,137 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
+2025-05-15 06:30:26,319 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
+2025-05-15 06:30:26,350 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-youtube.mrs
