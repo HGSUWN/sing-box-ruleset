@@ -6,14 +6,14 @@
                 "booth.pm",
                 "fanbox.cc",
                 "pixiv.org",
-                "pximg.net",
-                "ads-pixiv.net",
-                "pixiv.help",
                 "pixivision.net",
+                "ads-pixiv.net",
                 "pixiv.co.jp",
-                "pixiv.me",
                 "pixiv-recommend.net",
-                "pixiv.net"
+                "pixiv.help",
+                "pixiv.net",
+                "pixiv.me",
+                "pximg.net"
             ]
         }
     ]
