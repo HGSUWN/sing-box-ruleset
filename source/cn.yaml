@@ -23,7 +23,6 @@ geoip:
   - "https://github.com/SagerNet/sing-geoip/raw/refs/heads/rule-set/geoip-cn.srs"
   
   # 基础 IP 规则
-  - "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/clash/ipcidr/cn.txt"
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.srs"
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/privateip.srs"
   
