@@ -1,0 +1,5 @@
+geosite:
+  - "https://github.com/HGSUWN/sing-box-ruleset/raw/refs/heads/main/mixxxxxxxx.list"
+
+geoip:
+  - "https://github.com/HGSUWN/sing-box-ruleset/raw/refs/heads/main/mixxxxxxxx.list"
