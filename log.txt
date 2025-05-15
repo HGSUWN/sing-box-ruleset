@@ -1,5 +1,5 @@
-2025-05-15 02:31:36,272 - INFO - category-nsfw 规则整理完成:
-2025-05-15 02:31:36,272 - INFO - 类型: geosite
+2025-05-15 02:33:21,115 - INFO - category-nsfw 规则整理完成:
+2025-05-15 02:33:21,115 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 6528
 规则分析:
@@ -9,8 +9,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 136
 --------------------------------------------------
-2025-05-15 02:31:44,162 - INFO - category-direct 规则整理完成:
-2025-05-15 02:31:44,162 - INFO - 类型: geosite
+2025-05-15 02:33:29,956 - INFO - category-direct 规则整理完成:
+2025-05-15 02:33:29,956 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 108
 剩余规则总数: 124216
 规则分析:
@@ -20,7 +20,7 @@ domain 被过滤掉的条目数量: 108
   process_name 条目数: 0
   domain_regex 条目数: 26
 --------------------------------------------------
-2025-05-15 02:31:44,162 - INFO - 类型: geoip
+2025-05-15 02:33:29,956 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 19044
 规则分析:
@@ -30,31 +30,31 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 02:31:44,162 - INFO - 处理类别：geosite-category-direct
-2025-05-15 02:31:44,172 - INFO - 跳过处理 geosite-category-direct，因为没有 @cn 或 @!cn 文件
-2025-05-15 02:31:44,173 - INFO - 处理类别：geosite-category-nsfw
-2025-05-15 02:31:44,173 - INFO - 跳过处理 geosite-category-nsfw，因为没有 @cn 或 @!cn 文件
-2025-05-15 02:31:44,174 - INFO - 处理类别：geoip-category-direct
-2025-05-15 02:31:44,175 - INFO - 跳过处理 geoip-category-direct，因为没有 @cn 或 @!cn 文件
-2025-05-15 02:31:45,348 - INFO - 转换完成: ./rule/singbox/geosite-category-direct.json → ./rule/surge/geosite-category-direct.list, ./rule/shadowrocket/geosite-category-direct.list
-2025-05-15 02:31:45,354 - INFO - 转换完成: ./rule/singbox/geosite-category-nsfw.json → ./rule/surge/geosite-category-nsfw.list, ./rule/shadowrocket/geosite-category-nsfw.list
-2025-05-15 02:31:45,362 - INFO - 转换完成: ./rule/singbox/geoip-category-direct.json → ./rule/surge/geoip-category-direct.list, ./rule/shadowrocket/geoip-category-direct.list
-2025-05-15 02:31:45,465 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-game@cn.mrs
-2025-05-15 02:31:45,519 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-vpn@cn.mrs
-2025-05-15 02:31:45,550 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-download@!cn.mrs
-2025-05-15 02:31:45,810 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-geolocation-!cn.mrs
-2025-05-15 02:31:45,840 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-game.mrs
-2025-05-15 02:31:45,869 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-communication@!cn.mrs
-2025-05-15 02:31:45,912 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-vpn@!cn.mrs
-2025-05-15 02:31:47,223 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-direct.mrs
-2025-05-15 02:31:47,257 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-game@!cn.mrs
-2025-05-15 02:31:47,285 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-communication@!cn.mrs
-2025-05-15 02:31:47,315 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-geolocation-eu.mrs
-2025-05-15 02:31:47,405 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-nsfw.mrs
-2025-05-15 02:31:47,458 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-media@!cn.mrs
-2025-05-15 02:31:47,623 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-direct.mrs
-2025-05-15 02:31:47,659 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-video@!cn.mrs
-2025-05-15 02:31:47,691 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-media@cn.mrs
-2025-05-15 02:31:47,721 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-filter-fakeip.mrs
-2025-05-15 02:31:47,749 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-geolocation-jp.mrs
-2025-05-15 02:31:48,776 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-blocker-trash.mrs
+2025-05-15 02:33:29,956 - INFO - 处理类别：geosite-category-direct
+2025-05-15 02:33:29,966 - INFO - 跳过处理 geosite-category-direct，因为没有 @cn 或 @!cn 文件
+2025-05-15 02:33:29,967 - INFO - 处理类别：geosite-category-nsfw
+2025-05-15 02:33:29,967 - INFO - 跳过处理 geosite-category-nsfw，因为没有 @cn 或 @!cn 文件
+2025-05-15 02:33:29,968 - INFO - 处理类别：geoip-category-direct
+2025-05-15 02:33:29,969 - INFO - 跳过处理 geoip-category-direct，因为没有 @cn 或 @!cn 文件
+2025-05-15 02:33:31,123 - INFO - 转换完成: ./rule/singbox/geosite-category-direct.json → ./rule/surge/geosite-category-direct.list, ./rule/shadowrocket/geosite-category-direct.list
+2025-05-15 02:33:31,129 - INFO - 转换完成: ./rule/singbox/geosite-category-nsfw.json → ./rule/surge/geosite-category-nsfw.list, ./rule/shadowrocket/geosite-category-nsfw.list
+2025-05-15 02:33:31,138 - INFO - 转换完成: ./rule/singbox/geoip-category-direct.json → ./rule/surge/geoip-category-direct.list, ./rule/shadowrocket/geoip-category-direct.list
+2025-05-15 02:33:31,241 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-game@cn.mrs
+2025-05-15 02:33:31,295 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-vpn@cn.mrs
+2025-05-15 02:33:31,324 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-download@!cn.mrs
+2025-05-15 02:33:31,582 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-geolocation-!cn.mrs
+2025-05-15 02:33:31,610 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-game.mrs
+2025-05-15 02:33:31,639 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-communication@!cn.mrs
+2025-05-15 02:33:31,678 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-vpn@!cn.mrs
+2025-05-15 02:33:32,895 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-direct.mrs
+2025-05-15 02:33:32,931 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-game@!cn.mrs
+2025-05-15 02:33:32,958 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-communication@!cn.mrs
+2025-05-15 02:33:32,985 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-geolocation-eu.mrs
+2025-05-15 02:33:33,076 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-nsfw.mrs
+2025-05-15 02:33:33,122 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-media@!cn.mrs
+2025-05-15 02:33:33,281 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-direct.mrs
+2025-05-15 02:33:33,316 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-video@!cn.mrs
+2025-05-15 02:33:33,346 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-media@cn.mrs
+2025-05-15 02:33:33,373 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-filter-fakeip.mrs
+2025-05-15 02:33:33,400 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-geolocation-jp.mrs
+2025-05-15 02:33:34,435 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-blocker-trash.mrs
