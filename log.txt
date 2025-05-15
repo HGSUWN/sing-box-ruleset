@@ -1,5 +1,5 @@
-2025-05-15 03:02:10,539 - INFO - nsfw 规则整理完成:
-2025-05-15 03:02:10,539 - INFO - 类型: geosite
+2025-05-15 05:04:57,030 - INFO - nsfw 规则整理完成:
+2025-05-15 05:04:57,030 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 6528
 规则分析:
@@ -9,33 +9,33 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 136
 --------------------------------------------------
-2025-05-15 03:02:19,278 - INFO - cn 规则整理完成:
-2025-05-15 03:02:19,278 - INFO - 类型: geosite
+2025-05-15 05:05:09,666 - INFO - cn 规则整理完成:
+2025-05-15 05:05:09,666 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 137
-剩余规则总数: 125927
+剩余规则总数: 125963
 规则分析:
   domain 条目数: 401
-  domain_suffix 条目数: 125500
+  domain_suffix 条目数: 125535
   ip_cidr 条目数: 0
   process_name 条目数: 0
-  domain_regex 条目数: 26
+  domain_regex 条目数: 27
 --------------------------------------------------
-2025-05-15 03:02:19,278 - INFO - 类型: geoip
+2025-05-15 05:05:09,666 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
-剩余规则总数: 21736
+剩余规则总数: 21959
 规则分析:
   domain 条目数: 0
   domain_suffix 条目数: 0
-  ip_cidr 条目数: 21736
+  ip_cidr 条目数: 21959
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2025-05-15 03:02:20,432 - INFO - 转换完成: ./rule/singbox/geosite-nsfw.json → ./rule/surge/geosite-nsfw.list, ./rule/shadowrocket/geosite-nsfw.list
-2025-05-15 03:02:20,483 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
-2025-05-15 03:02:20,496 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
-2025-05-15 03:02:21,917 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
-2025-05-15 03:02:22,009 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-nsfw.mrs
-2025-05-15 03:02:23,342 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-direct.mrs
-2025-05-15 03:02:23,436 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-nsfw.mrs
-2025-05-15 03:02:23,618 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
-2025-05-15 03:02:23,782 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-direct.mrs
+2025-05-15 05:05:10,868 - INFO - 转换完成: ./rule/singbox/geosite-nsfw.json → ./rule/surge/geosite-nsfw.list, ./rule/shadowrocket/geosite-nsfw.list
+2025-05-15 05:05:10,920 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
+2025-05-15 05:05:10,933 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
+2025-05-15 05:05:12,441 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
+2025-05-15 05:05:12,559 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-nsfw.mrs
+2025-05-15 05:05:13,986 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-direct.mrs
+2025-05-15 05:05:14,078 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-category-nsfw.mrs
+2025-05-15 05:05:14,262 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
+2025-05-15 05:05:14,429 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-category-direct.mrs
