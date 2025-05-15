@@ -6,73 +6,85 @@ class Config:
         # 日志设置
         self.log_file = 'log.txt'
         if os.path.exists(self.log_file):
-            open(self.log_file, 'w').close()  # 清空旧的日志内容
+            open(self.log_file, 'w').close()
 
         logging.basicConfig(filename=self.log_file, level=logging.INFO,
                             format='%(asctime)s - %(levelname)s - %(message)s')
 
-        # 规则设置
+        # 目录设置
         self.rule_dir = './rule'
         self.source_dir = './source'
-
+        
+        # 输出目录
         self.singbox_output_directory = os.path.join(self.rule_dir, 'singbox')
-        self.surge_output_directory = os.path.join(self.rule_dir, 'surge')
-        self.shadowrocket_output_directory = os.path.join(self.rule_dir, 'shadowrocket')
         self.clash_output_directory = os.path.join(self.rule_dir, 'clash')
+        
+        # 核心分类配置 --------------------------------------------------------
+        # 地理围栏规则类型（仅域名相关）
+        self.geosite_types = {
+            'domain',          # 完全匹配
+            'domain_suffix',   # 后缀匹配
+            'domain_keyword',  # 关键字匹配
+            'domain_regex'     # 正则匹配
+        }
+        
+        # IP规则类型（仅IP/CIDR相关）
+        self.geoip_types = {
+            'ip_cidr',         # IPv4/IPv6 CIDR
+            'ip_cidr6',        # IPv6 CIDR（兼容别名）
+            'source_ip_cidr',  # 源IP匹配
+            'geoip'            # 国家代码
+        }
 
-        self.trust_upstream = False
-        self.ls_index = 1
-        self.enable_trie_filtering = [True, False][0]  # 是否按照 domain_suffix 剔除重复的 domain
-        self.ls_keyword = ["little-snitch", "adobe-blocklist"]  # little snitch 链接关键字
-        self.adg_keyword = ["adguard"]  # adguard 链接关键字
-
-        # 类型分类定义
-        self.geosite_rule_types = ['domain_suffix', 'domain', 'domain_keyword', 'domain_regex']
-        self.geoip_rule_types = ['ip_cidr', 'source_ip_cidr', 'geoip']
-
-        # 类型映射字典
+        # 类型映射体系 --------------------------------------------------------
+        # 原始类型标准化映射
         self.map_dict = {
-            'DOMAIN-SUFFIX': 'domain_suffix', 'HOST-SUFFIX': 'domain_suffix', 
-            'DOMAIN': 'domain', 'HOST': 'domain', 'host': 'domain',
-            'DOMAIN-KEYWORD': 'domain_keyword', 'HOST-KEYWORD': 'domain_keyword', 
-            'host-keyword': 'domain_keyword', 'IP-CIDR': 'ip_cidr',
-            'ip-cidr': 'ip_cidr', 'IP-CIDR6': 'ip_cidr', 'IP6-CIDR': 'ip_cidr', 
-            'SRC-IP-CIDR': 'source_ip_cidr', 'GEOIP': 'geoip',
-            'DST-PORT': 'port', 'SRC-PORT': 'source_port', 
-            "URL-REGEX": "domain_regex", "DOMAIN-REGEX": "domain_regex", 
+            # 域名类型
+            'DOMAIN-SUFFIX': 'domain_suffix',
+            'HOST-SUFFIX': 'domain_suffix',
+            'DOMAIN': 'domain',
+            'HOST': 'domain',
+            'DOMAIN-KEYWORD': 'domain_keyword',
+            'HOST-KEYWORD': 'domain_keyword',
+            'URL-REGEX': 'domain_regex',
+            'DOMAIN-REGEX': 'domain_regex',
+            
+            # IP类型
+            'IP-CIDR': 'ip_cidr',
+            'ip-cidr': 'ip_cidr',
+            'IP-CIDR6': 'ip_cidr6',
+            'IP6-CIDR': 'ip_cidr6',
+            'SRC-IP-CIDR': 'source_ip_cidr',
+            'GEOIP': 'geoip',
+            
+            # 其他（端口、进程等）
+            'DST-PORT': 'port',
+            'SRC-PORT': 'source_port',
             "PROCESS-NAME": "process_name"
         }
-        
+
+        # 逆向映射
         self.MAP_REVERSE = {v: k for k, v in self.map_dict.items()}
 
-        # Singbox到Clash的规则类型映射（按分类拆分）
-        self.SINGBOX_GEOSITE_TO_CLASH = {
-            "domain_suffix": "DOMAIN-SUFFIX",
-            "domain": "DOMAIN",
-            "domain_keyword": "DOMAIN-KEYWORD",
-            "domain_regex": "DOMAIN-REGEX"
+        # 输出映射规则（严格分类）--------------------------------------------
+        # Singbox -> Clash 的映射
+        self.SINGBOX_TO_CLASH_GEOSITE = {
+            # 域名类型映射
+            'domain_suffix': 'DOMAIN-SUFFIX',
+            'domain': 'DOMAIN',
+            'domain_keyword': 'DOMAIN-KEYWORD',
+            'domain_regex': 'DOMAIN-REGEX'
         }
         
-        self.SINGBOX_GEOIP_TO_CLASH = {
-            "ip_cidr": "IP-CIDR",
-            "source_ip_cidr": "SRC-IP-CIDR",
-            "geoip": "GEOIP"
+        self.SINGBOX_TO_CLASH_GEOIP = {
+            # IP类型映射
+            'ip_cidr': 'IP-CIDR',
+            'ip_cidr6': 'IP-CIDR6',
+            'source_ip_cidr': 'SRC-IP-CIDR',
+            'geoip': 'GEOIP'
         }
 
-        # Singbox到Surge的规则类型映射（按分类拆分）
-        self.SINGBOX_GEOSITE_TO_SURGE = {
-            "domain_suffix": "DOMAIN-SUFFIX",
-            "domain": "DOMAIN",
-            "domain_keyword": "DOMAIN-KEYWORD",
-            "domain_regex": "DOMAIN-REGEX"
-        }
-        
-        self.SINGBOX_GEOIP_TO_SURGE = {
-            "ip_cidr": "IP-CIDR",
-            "source_ip_cidr": "SRC-IP-CIDR",
-            "geoip": "GEOIP"
-        }
-
-        # 兼容旧映射（如有需要可保留）
-        self.SINGBOX_TO_CLASH_MAP = {**self.SINGBOX_GEOSITE_TO_CLASH, **self.SINGBOX_GEOIP_TO_CLASH}
-        self.SINGBOX_TO_SURGE_MAP = {**self.SINGBOX_GEOSITE_TO_SURGE, **self.SINGBOX_GEOIP_TO_SURGE}
+        # 其他配置参数
+        self.trust_upstream = False
+        self.ls_index = 1
+        self.enable_trie_filtering = True  # 启用域名后缀去重
