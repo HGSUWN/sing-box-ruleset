@@ -1,62 +1,78 @@
-package main
+import logging
+import os
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"gopkg.in/yaml.v2"
-)
+class Config:
+    def __init__(self):
+        # 日志设置
+        self.log_file = 'log.txt'
+        if os.path.exists(self.log_file):
+            open(self.log_file, 'w').close()  # 清空旧的日志内容
 
-// Config holds directories and rule-type mappings
-type Config struct {
-	LogFile                  string
-	RuleDir                  string
-	SourceDir                string
-	SingboxOutputDirectory   string
-	SurgeOutputDirectory     string
-	ShadowrocketOutputDirectory string
-	ClashOutputDirectory     string
-	TrustUpstream            bool
-	LsIndex                  int
-	EnableTrieFiltering      bool
-	LsKeyword                []string
-	AdgKeyword               []string
-	MapDict                  map[string]string
-	MAPReverse               map[string]string
-	SingboxToClashMap        map[string]string
-	SingboxToSurgeMap        map[string]string
+        logging.basicConfig(filename=self.log_file, level=logging.INFO,
+                            format='%(asctime)s - %(levelname)s - %(message)s')
 
-	// 类型白名单
-	DomainTypes []string
-	IPTypes     []string
-}
+        # 规则设置
+        self.rule_dir = './rule'
+        self.source_dir = './source'
 
-// NewConfig initializes default Config with type whitelists
-func NewConfig() *Config {
-	logFile := "log.txt"
-	if _, err := os.Stat(logFile); err == nil {
-		ioutil.WriteFile(logFile, []byte{}, 0644)
-	}
-	// 初始化日志
-	log.SetOutput(&lumberjackLogger{Filename: logFile})
+        self.singbox_output_directory = os.path.join(self.rule_dir, 'singbox')
+        self.surge_output_directory = os.path.join(self.rule_dir, 'surge')
+        self.shadowrocket_output_directory = os.path.join(self.rule_dir, 'shadowrocket')
+        self.clash_output_directory = os.path.join(self.rule_dir, 'clash')
 
-	c := &Config{
-		LogFile:                logFile,
-		RuleDir:                "./rule",
-		SourceDir:              "./source",
-		SingboxOutputDirectory: filepath.Join("./rule", "singbox"),
-		SurgeOutputDirectory:   filepath.Join("./rule", "surge"),
-		ShadowrocketOutputDirectory: filepath.Join("./rule", "shadowrocket"),
-		ClashOutputDirectory:   filepath.Join("./rule", "clash"),
-		TrustUpstream:          false,
-		LsIndex:                1,
-		EnableTrieFiltering:    true,
-		LsKeyword:              []string{"little-snitch", "adobe-blocklist"},
-		AdgKeyword:             []string{"adguard"},
-		MapDict: map[string]string{
-			"DOMAIN-SUFFIX":    "domain_suffix",
-			"HOST-SUFFIX":      "domain_suffix",
-			"DOMAIN":           "domain",
-			"HOST":             "domain",
+        self.trust_upstream = False
+        self.ls_index = 1
+        self.enable_trie_filtering = [True, False][0]  # 是否按照 domain_suffix 剔除重复的 domain
+        self.ls_keyword = ["little-snitch", "adobe-blocklist"]  # little snitch 链接关键字
+        self.adg_keyword = ["adguard"]  # adguard 链接关键字
+
+        # 类型分类定义
+        self.geosite_rule_types = ['domain_suffix', 'domain', 'domain_keyword', 'domain_regex']
+        self.geoip_rule_types = ['ip_cidr', 'source_ip_cidr', 'geoip']
+
+        # 类型映射字典
+        self.map_dict = {
+            'DOMAIN-SUFFIX': 'domain_suffix', 'HOST-SUFFIX': 'domain_suffix', 
+            'DOMAIN': 'domain', 'HOST': 'domain', 'host': 'domain',
+            'DOMAIN-KEYWORD': 'domain_keyword', 'HOST-KEYWORD': 'domain_keyword', 
+            'host-keyword': 'domain_keyword', 'IP-CIDR': 'ip_cidr',
+            'ip-cidr': 'ip_cidr', 'IP-CIDR6': 'ip_cidr', 'IP6-CIDR': 'ip_cidr', 
+            'SRC-IP-CIDR': 'source_ip_cidr', 'GEOIP': 'geoip',
+            'DST-PORT': 'port', 'SRC-PORT': 'source_port', 
+            "URL-REGEX": "domain_regex", "DOMAIN-REGEX": "domain_regex", 
+            "PROCESS-NAME": "process_name"
+        }
+        
+        self.MAP_REVERSE = {v: k for k, v in self.map_dict.items()}
+
+        # Singbox到Clash的规则类型映射（按分类拆分）
+        self.SINGBOX_GEOSITE_TO_CLASH = {
+            "domain_suffix": "DOMAIN-SUFFIX",
+            "domain": "DOMAIN",
+            "domain_keyword": "DOMAIN-KEYWORD",
+            "domain_regex": "DOMAIN-REGEX"
+        }
+        
+        self.SINGBOX_GEOIP_TO_CLASH = {
+            "ip_cidr": "IP-CIDR",
+            "source_ip_cidr": "SRC-IP-CIDR",
+            "geoip": "GEOIP"
+        }
+
+        # Singbox到Surge的规则类型映射（按分类拆分）
+        self.SINGBOX_GEOSITE_TO_SURGE = {
+            "domain_suffix": "DOMAIN-SUFFIX",
+            "domain": "DOMAIN",
+            "domain_keyword": "DOMAIN-KEYWORD",
+            "domain_regex": "DOMAIN-REGEX"
+        }
+        
+        self.SINGBOX_GEOIP_TO_SURGE = {
+            "ip_cidr": "IP-CIDR",
+            "source_ip_cidr": "SRC-IP-CIDR",
+            "geoip": "GEOIP"
+        }
+
+        # 兼容旧映射（如有需要可保留）
+        self.SINGBOX_TO_CLASH_MAP = {**self.SINGBOX_GEOSITE_TO_CLASH, **self.SINGBOX_GEOIP_TO_CLASH}
+        self.SINGBOX_TO_SURGE_MAP = {**self.SINGBOX_GEOSITE_TO_SURGE, **self.SINGBOX_GEOIP_TO_SURGE}
