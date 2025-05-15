@@ -1,2 +1,3 @@
 geosite:
   - "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/bilibili.srs"
+  - "https://github.com/CHIZI-0618/v2ray-rules-dat/raw/refs/heads/release/singbox_rule_set/geosite-bilibili.srs"
