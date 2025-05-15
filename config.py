@@ -1,82 +1,118 @@
-import logging
-import os
+// main.go
+package main
 
-class Config:
-    def __init__(self):
-        # 日志设置……
-        self.log_file = 'log.txt'
-        if os.path.exists(self.log_file):
-            open(self.log_file, 'w').close()
-        logging.basicConfig(
-            filename=self.log_file, level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s'
-        )
+import (
+    "encoding/json"
+    "flag"
+    "log"
+    "os"
+    "path/filepath"
+)
 
-        # 规则目录设置……
-        self.rule_dir = './rule'
-        self.source_dir = './source'
-        self.singbox_output_directory = os.path.join(self.rule_dir, 'singbox')
-        self.clash_output_directory   = os.path.join(self.rule_dir, 'clash')
-        # ……其他输出目录略
+// Rule 表示一条通用规则，Type 为映射后的类型（如 "domain", "ip_cidr" 等），
+ // Value 为具体的规则值（如 "example.com", "192.168.0.0/16" 等）。
+type Rule struct {
+    Type  string `json:"type"`
+    Value string `json:"value"`
+}
 
-        # 类型映射（已有）
-        self.map_dict = {
-            'DOMAIN-SUFFIX': 'domain_suffix', 'DOMAIN': 'domain',
-            'DOMAIN-KEYWORD': 'domain_keyword', 'DOMAIN-REGEX': 'domain_regex',
-            'IP-CIDR': 'ip_cidr', 'IP-CIDR6': 'ip_cidr', 'GEOIP': 'geoip',
-            # ……其余映射
+// Config 保存各类输出目录及配置项
+type Config struct {
+    RuleDir                 string
+    SingboxOutputDirectory  string
+    ClashOutputDirectory    string
+}
+
+// NewConfig 根据命令行或默认值生成 Config
+func NewConfig() *Config {
+    var ruleDir string
+    flag.StringVar(&ruleDir, "rule-dir", "./rule", "根规则目录")
+    flag.Parse()
+
+    return &Config{
+        RuleDir:                ruleDir,
+        SingboxOutputDirectory: filepath.Join(ruleDir, "singbox"),
+        ClashOutputDirectory:   filepath.Join(ruleDir, "clash"),
+    }
+}
+
+// 定义哪些类型算作“域名”，哪些算作“IP”
+var domainTypes = map[string]bool{
+    "domain":         true,
+    "domain_suffix":  true,
+    "domain_keyword": true,
+    "domain_regex":   true,
+}
+
+var ipTypes = map[string]bool{
+    "ip_cidr":        true,
+    "source_ip_cidr": true,
+    "geoip":          true,
+}
+
+// filterByType 只保留 allowedTypes 中为 true 的那部分规则
+func filterByType(rules []Rule, allowedTypes map[string]bool) []Rule {
+    out := make([]Rule, 0, len(rules))
+    for _, r := range rules {
+        if allowedTypes[r.Type] {
+            out = append(out, r)
         }
-        self.MAP_REVERSE = {v: k for k, v in self.map_dict.items()}
+    }
+    return out
+}
 
-        # ——新增—— 允许的类型集合
-        # 1) geosite 只保留域名相关的
-        self._geosite_types = {
-            'domain', 'domain_suffix',
-            'domain_keyword', 'domain_regex'
-        }
-        # 2) geoip 只保留 IP/CIDR/GeoIP 相关的
-        self._geoip_types = {
-            'ip_cidr', 'source_ip_cidr', 'geoip'
-        }
+// writeJSON 将 rules 序列化为带缩进的 JSON 并写入 path
+func writeJSON(path string, rules []Rule) {
+    // 确保目录存在
+    if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+        log.Fatalf("无法创建目录 %s: %v", filepath.Dir(path), err)
+    }
 
-        # Clash/Surge 映射（可定制）
-        self.SINGBOX_TO_CLASH_MAP = {
-            k: self.MAP_REVERSE[k] for k in self._geosite_types.union(self._geoip_types)
-        }
-        # 如果 Surge 也需要同样过滤，可以同理构造：
-        self.SINGBOX_TO_SURGE_MAP = dict(self.SINGBOX_TO_CLASH_MAP)
+    data, err := json.MarshalIndent(rules, "", "  ")
+    if err != nil {
+        log.Fatalf("JSON 序列化失败: %v", err)
+    }
+    if err := os.WriteFile(path, data, 0o644); err != nil {
+        log.Fatalf("写入文件 %s 失败: %v", path, err)
+    }
+    log.Printf("已写入 %s，共 %d 条规则\n", path, len(rules))
+}
 
-    def filter_rules(self, rules: list[dict], mode: str) -> list[dict]:
-        """
-        根据 mode ('geosite' or 'geoip') 过滤规则列表。
-        每个 rule 应包含 'type' 字段，对应 map_dict 的 value。
-        """
-        if mode == 'geosite':
-            allowed = self._geosite_types
-        elif mode == 'geoip':
-            allowed = self._geoip_types
-        else:
-            return []
+// loadAllRules 请根据你的源格式自行实现，这里示例返回硬编码测试用例
+func loadAllRules() []Rule {
+    return []Rule{
+        {Type: "domain", Value: "example.com"},
+        {Type: "domain_suffix", Value: "example.org"},
+        {Type: "ip_cidr", Value: "192.168.0.0/16"},
+        {Type: "geoip", Value: "cn"},
+        {Type: "domain_keyword", Value: "test"},
+        {Type: "source_ip_cidr", Value: "10.0.0.0/8"},
+        {Type: "domain_regex", Value: `^foo\d+\.bar$`},
+    }
+}
 
-        return [rule for rule in rules if rule['type'] in allowed]
+func main() {
+    // 初始化配置
+    cfg := NewConfig()
 
+    // 加载所有规则
+    allRules := loadAllRules()
 
-# ——调用示例——
-# 假设你已经把 .srs 解析成了列表 rules，每项类似：
-#   {'type': 'domain_suffix', 'value': 'example.com'}
-# 那么分别这样输出：
-cfg = Config()
-all_rules = [
-    {'type': 'domain', 'value': 'foo.com'},
-    {'type': 'ip_cidr', 'value': '1.2.3.0/24'},
-    {'type': 'geoip', 'value': 'CN'},
-    {'type': 'domain_keyword', 'value': 'ad'}
-]
+    // ==== Sing‑box 输出 ====
+    // geosite.json（仅域名规则）
+    sbGeoSite := filterByType(allRules, domainTypes)
+    writeJSON(filepath.Join(cfg.SingboxOutputDirectory, "geosite.json"), sbGeoSite)
 
-# 生成 geosite.json 的内容，只会留下 domain/domain_suffix/...：
-geo_rules = cfg.filter_rules(all_rules, mode='geosite')
-# 生成 geoip.json 的内容，只会留下 ip_cidr/source_ip_cidr/geoip：
-ip_rules  = cfg.filter_rules(all_rules, mode='geoip')
+    // geoip.json（仅 IP 规则）
+    sbGeoIP := filterByType(allRules, ipTypes)
+    writeJSON(filepath.Join(cfg.SingboxOutputDirectory, "geoip.json"), sbGeoIP)
 
-print("Geosite:", geo_rules)
-print("GeoIP:", ip_rules)
+    // ==== Clash 输出 ====
+    // geosite.json（仅域名规则）
+    clashGeoSite := filterByType(allRules, domainTypes)
+    writeJSON(filepath.Join(cfg.ClashOutputDirectory, "geosite.json"), clashGeoSite)
+
+    // geoip.json（仅 IP 规则）
+    clashGeoIP := filterByType(allRules, ipTypes)
+    writeJSON(filepath.Join(cfg.ClashOutputDirectory, "geoip.json"), clashGeoIP)
+}
