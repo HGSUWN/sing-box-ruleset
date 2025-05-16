@@ -53,11 +53,3 @@ jobs:
         git add ./rule/
         git add ./log.txt
         git add ./route.json
-
-        # 检查是否有文件被修改
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-          exit 0
-        else
-          git commit -m "Update rules"
-        fi
