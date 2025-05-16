@@ -3,4 +3,4 @@ geosite:
   - "https://github.com/CHIZI-0618/v2ray-rules-dat/raw/refs/heads/release/singbox_rule_set/geosite-bilibili.srs"
 
 geoip:
-  - "https://github.com/HGSUWN/sing-box-ruleset/raw/refs/heads/main-use/self-host/bilibili.list"
+  - "https://github.com/HGSUWN/sing-box-ruleset/raw/refs/heads/main-use/self-host/bilibili_ip.json"
