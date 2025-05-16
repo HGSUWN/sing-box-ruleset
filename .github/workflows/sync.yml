@@ -1,8 +1,6 @@
 name: 规则更新
 
 on:
-  push:
-    branches: [ Personal-use ]
   workflow_dispatch:
   schedule:
     - cron: '0 20 * * *'
