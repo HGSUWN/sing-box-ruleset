@@ -18,7 +18,6 @@ geosite:
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_OCD_Domain.yaml"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/SteamCN/SteamCN_OCD_Domain.yaml"
   - "https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/self-host/geosite-direct@amos.json"
-  - "https://github.com/GMOogway/shadowrocket-rules/raw/refs/heads/master/sr_direct_list.module"
 
 geoip:
   # SagerNet 官方规则集
