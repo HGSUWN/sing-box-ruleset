@@ -117,7 +117,8 @@ def clean_denied_domains(domains):
             if len(parts) == 2:  # 例如 "0512s.com"
                 cleaned_domains["domain"].append(domain)
                 cleaned_domains["domain_suffix"].append("." + domain)  # 将带点的形式添加到 domain_suffix
-                cleaned_domains["domain_keyword"].append("." + domain)
+                main_part = domain.split('.')[0]
+                cleaned_domains["domain_keyword"].append(main_part)
             elif len(parts) > 2:  # 例如 "counter.packa2.cz"
                 cleaned_domains["domain"].append(domain)
 
@@ -291,7 +292,7 @@ def deduplicate_json(data):
 
         # 清洗 domain_keyword
         for regex in domain_regex:
-            domain_keyword = {keyword for suffix in domain_keyword if not match_domain_keyword_regex(keyword, regex)}
+            domain_keyword = {keyword for keyword in domain_keyword if not match_domain_keyword_regex(keyword, regex)}
 
     merged_rules["domain"] = final_domains
     merged_rules["domain_suffix"] = domain_suffix
@@ -337,7 +338,7 @@ def match_domain_suffix_regex(suffix, regex):
     return bool(re.match(f"^{regex}$", suffix))
 
 
-def match_domain_keyword_regex(suffix, regex):
+def match_domain_keyword_regex(keyword, regex):
     """
     用于匹配 domain_keyword 的正则表达式，确保是匹配后缀
     """
