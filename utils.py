@@ -117,10 +117,10 @@ def clean_denied_domains(domains):
             if len(parts) == 2:  # 例如 "0512s.com"
                 cleaned_domains["domain"].append(domain)
                 cleaned_domains["domain_suffix"].append("." + domain)  # 将带点的形式添加到 domain_suffix
+            elif len(parts) >= 2:  # 例如 "counter.packa2.cz"
+                cleaned_domains["domain"].append(domain)
                 main_part = domain.split('.')[0]
                 cleaned_domains["domain_keyword"].append(main_part)
-            elif len(parts) > 2:  # 例如 "counter.packa2.cz"
-                cleaned_domains["domain"].append(domain)
 
     return cleaned_domains
 
@@ -149,12 +149,26 @@ def parse_and_convert_to_dataframe(link):
                             if address.startswith('.'):
                                 address = address[1:]
                         else:
-                            pattern = 'DOMAIN'
+                            # 默认可能是 DOMAIN 或 DOMAIN-KEYWORD，需根据实际规则判断
+                            # 示例：如果规则包含 "keyword" 标识，则设为 DOMAIN-KEYWORD
+                            if "keyword" in item.lower():
+                                pattern = 'DOMAIN-KEYWORD'
+                            else:
+                                pattern = 'DOMAIN'
                 else:
                     pattern, address = item.split(',', 1)
+
+                # 显式处理 DOMAIN-KEYWORD 类型
+                pattern = pattern.strip().upper()  # 统一转为大写
+                if pattern == "DOMAIN-KEYWORD":
+                    # 确保映射到 config.MAP_DICT 中的 domain_keyword
+                    pass  # 无需额外操作，后续逻辑依赖 config.MAP_DICT
+
                 if pattern == "IP-CIDR" and "no-resolve" in address:
                     address = address.split(',', 1)[0]
-                rows.append({'pattern': pattern.strip(), 'address': address.strip(), 'other': None})
+
+                rows.append({'pattern': pattern, 'address': address.strip(), 'other': None})
+
             df = pd.DataFrame(rows, columns=['pattern', 'address', 'other'])
         else:
             df, rules = read_list_from_url(link)
@@ -162,7 +176,6 @@ def parse_and_convert_to_dataframe(link):
         logging.error(f"解析 {link} 时出错：{e}")
         return pd.DataFrame(), []
 
-    # logging.info(f"成功解析链接 {link}")
     return df, rules
 
 
