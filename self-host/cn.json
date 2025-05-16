@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_keyword": [
+        "vip.ffzy-online"
+      ]
+    },
+    {
+      "domain_suffix": [
+        "thewar2061.com",
+        "ibabyxs8.com",
+        "shumilou.co",
+        "fanqxsw.com",
+        "rttks.com",
+        "aiyingshis.com"
+      ]
+    }
+  ]
+}
