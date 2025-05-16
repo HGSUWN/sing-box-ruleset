@@ -2,16 +2,12 @@
   "version": 1,
   "rules": [
     {
-      "domain": [
-        "vip.ffzy-online"
-      ]
-    },
-    {
       "domain_suffix": [
         "thewar2061.com",
         "ibabyxs8.com",
         "shumilou.co",
         "fanqxsw.com",
+        "vip.ffzy-online",
         "rttks.com",
         "aiyingshis.com"
       ]
