@@ -49,34 +49,6 @@
     ],
     "rule_set":[
       {
-        "tag":"geosite-youtube",
-        "type":"remote",
-        "format":"binary",
-        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-youtube.srs",
-        "download_detour":"VPN"
-      },
-      {
-        "tag":"geosite-google",
-        "type":"remote",
-        "format":"binary",
-        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-google.srs",
-        "download_detour":"VPN"
-      },
-      {
-        "tag":"geoip-cn",
-        "type":"remote",
-        "format":"binary",
-        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geoip-cn.srs",
-        "download_detour":"VPN"
-      },
-      {
-        "tag":"geosite-bilibili",
-        "type":"remote",
-        "format":"binary",
-        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-bilibili.srs",
-        "download_detour":"VPN"
-      },
-      {
         "tag":"geoip-google",
         "type":"remote",
         "format":"binary",
@@ -91,10 +63,10 @@
         "download_detour":"VPN"
       },
       {
-        "tag":"geoip-telegram",
+        "tag":"geosite-google",
         "type":"remote",
         "format":"binary",
-        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geoip-telegram.srs",
+        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-google.srs",
         "download_detour":"VPN"
       },
       {
@@ -112,10 +84,38 @@
         "download_detour":"VPN"
       },
       {
+        "tag":"geoip-cn",
+        "type":"remote",
+        "format":"binary",
+        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geoip-cn.srs",
+        "download_detour":"VPN"
+      },
+      {
+        "tag":"geoip-telegram",
+        "type":"remote",
+        "format":"binary",
+        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geoip-telegram.srs",
+        "download_detour":"VPN"
+      },
+      {
+        "tag":"geosite-youtube",
+        "type":"remote",
+        "format":"binary",
+        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-youtube.srs",
+        "download_detour":"VPN"
+      },
+      {
         "tag":"geoip-bilibili",
         "type":"remote",
         "format":"binary",
         "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geoip-bilibili.srs",
+        "download_detour":"VPN"
+      },
+      {
+        "tag":"geosite-bilibili",
+        "type":"remote",
+        "format":"binary",
+        "url":"https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/rule/singbox/geosite-bilibili.srs",
         "download_detour":"VPN"
       }
     ],
