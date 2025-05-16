@@ -1,6 +1,11 @@
 name: Config Update
 
 on:
+  push:
+    branches: [ main-use ]
+    paths:
+      - 'source/**'
+      - '.github/workflows/sync.yml'
   workflow_dispatch:
   schedule:
     - cron: '0 20 * * *'
