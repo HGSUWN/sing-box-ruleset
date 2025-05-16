@@ -32,6 +32,8 @@ def merge_rules(existing_data, new_data):
                   + (new_data.get("domain", []) if isinstance(new_data, dict) else []),
         "domain_suffix": (existing_data.get("domain_suffix", []) if isinstance(existing_data, dict) else [])
                          + (new_data.get("domain_suffix", []) if isinstance(new_data, dict) else []),
+        "domain_keyword": (existing_data.get("domain_suffix", []) if isinstance(existing_data, dict) else [])
+                         + (new_data.get("domain_keyword", []) if isinstance(new_data, dict) else []),
         "ip_cidr": (existing_data.get("ip_cidr", []) if isinstance(existing_data, dict) else [])
                    + (new_data.get("ip_cidr", []) if isinstance(new_data, dict) else []),
         "domain_regex": (existing_data.get("domain_regex", []) if isinstance(existing_data, dict) else [])
