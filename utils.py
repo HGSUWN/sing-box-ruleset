@@ -404,7 +404,6 @@ def filter_domains_with_trie(domains, domain_suffixes):
     使用 Trie 过滤掉被 domain_suffix 覆盖的 domain。
     :param domains: 需要去重的 domain 集合
     :param domain_suffixes: domain_suffix 集合
-    param domain_keywordes: domain_keyword 集合
     :return: 过滤后的 domains 和被过滤的数量
     """
     trie = Trie()
@@ -412,9 +411,6 @@ def filter_domains_with_trie(domains, domain_suffixes):
     # 统一插入 domain_suffix，去除前导 .
     for suffix in domain_suffixes:
         trie.insert(suffix)
-
-    # 统一插入 domain_keyword，去除前导 .
-    for suffix in domain_keywordes:
         trie.insert(keyword)
 
     filtered_domains = set()  # 存储未被匹配的域名
