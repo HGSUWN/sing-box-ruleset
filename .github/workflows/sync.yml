@@ -1,4 +1,4 @@
-name: 规则更新
+name: 规则构建
 
 on:
   workflow_dispatch:
