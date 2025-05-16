@@ -1,4 +1,4 @@
-name: 规则构建
+name: Config Update
 
 on:
   workflow_dispatch:
