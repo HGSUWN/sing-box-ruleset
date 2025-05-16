@@ -32,7 +32,7 @@ def merge_rules(existing_data, new_data):
                   + (new_data.get("domain", []) if isinstance(new_data, dict) else []),
         "domain_suffix": (existing_data.get("domain_suffix", []) if isinstance(existing_data, dict) else [])
                          + (new_data.get("domain_suffix", []) if isinstance(new_data, dict) else []),
-        "domain_keyword": (existing_data.get("domain_suffix", []) if isinstance(existing_data, dict) else [])
+        "domain_keyword": (existing_data.get("domain_keyword", []) if isinstance(existing_data, dict) else [])
                          + (new_data.get("domain_keyword", []) if isinstance(new_data, dict) else []),
         "ip_cidr": (existing_data.get("ip_cidr", []) if isinstance(existing_data, dict) else [])
                    + (new_data.get("ip_cidr", []) if isinstance(new_data, dict) else []),
@@ -105,7 +105,8 @@ def clean_denied_domains(domains):
     """清洗 denied-remote-domains 列表中的域名并分类。"""
     cleaned_domains = {
         "domain": [],
-        "domain_suffix": []
+        "domain_suffix": [],
+        "domain_keyword": []
     }
 
     for domain in domains:
@@ -116,6 +117,7 @@ def clean_denied_domains(domains):
             if len(parts) == 2:  # 例如 "0512s.com"
                 cleaned_domains["domain"].append(domain)
                 cleaned_domains["domain_suffix"].append("." + domain)  # 将带点的形式添加到 domain_suffix
+                cleaned_domains["domain_keyword"].append(domain)
             elif len(parts) > 2:  # 例如 "counter.packa2.cz"
                 cleaned_domains["domain"].append(domain)
 
@@ -195,6 +197,7 @@ def subtract_rules(base_data, subtract_data):
         "process_name": [],
         "domain": [],
         "domain_suffix": [],
+        "domain_keyword": [],
         "ip_cidr": [],
         "domain_regex": []
     }
@@ -255,6 +258,7 @@ def deduplicate_json(data):
         "process_name": set(),
         "domain": set(),
         "domain_suffix": set(),
+        "domain_keyword": set(),
         "ip_cidr": set(),
         "domain_regex": set()
     }
@@ -272,6 +276,7 @@ def deduplicate_json(data):
     # 第二轮去重：使用 domain_regex 清洗 domain 和 domain_suffix
     final_domains = merged_rules["domain"].copy()
     domain_suffix = merged_rules["domain_suffix"]
+    domain_keyword = merged_rules["domain_keyword"]
     domain_regex = merged_rules["domain_regex"]
 
     # 用 domain_regex 去重 domain 和 domain_suffix
@@ -284,11 +289,17 @@ def deduplicate_json(data):
         for regex in domain_regex:
             domain_suffix = {suffix for suffix in domain_suffix if not match_domain_suffix_regex(suffix, regex)}
 
+        # 清洗 domain_keyword
+        for regex in domain_regex:
+            domain_keyword = {keyword for suffix in domain_keyword if not match_domain_keyword_regex(keyword, regex)}
+
     merged_rules["domain"] = final_domains
     merged_rules["domain_suffix"] = domain_suffix
+    merged_rules["domain_keyword"] = domain_keyword
 
     # 第三轮去重：使用 Trie 对 domain_suffix 去重，并清洗 domain
     final_domains, _ = filter_domains_with_trie(merged_rules["domain"], merged_rules["domain_suffix"])
+    final_domains, _ = filter_domains_with_trie(merged_rules["domain"], merged_rules["domain_keyword"])
     merged_rules["domain"] = final_domains
 
     # 构造最终的输出列表
@@ -327,6 +338,13 @@ def match_domain_suffix_regex(suffix, regex):
     return bool(re.match(f"^{regex}$", suffix))
 
 
+def match_domain_keyword_regex(keyword, regex):
+    """
+    用于匹配 domain_keyword 的正则表达式，确保是匹配后缀
+    """
+    return bool(re.match(f"^{regex}$", suffix))
+
+
 # json去重算法
 class TrieNode:
     def __init__(self):
@@ -343,6 +361,16 @@ class Trie:
         suffix = suffix.lstrip('.')
         node = self.root
         for char in reversed(suffix):  # 倒序插入，方便匹配后缀
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.is_end = True
+
+    def insert(self, keyword):
+        """ 插入 domain_keyword，确保不包含前导 . """
+        keyword = keyword.lstrip('.')
+        node = self.root
+        for char in reversed(keyword):  # 倒序插入，方便匹配后缀
             if char not in node.children:
                 node.children[char] = TrieNode()
             node = node.children[char]
@@ -371,12 +399,12 @@ class Trie:
         # 完全匹配一个后缀时，结束条件
         return node.is_end
 
-
 def filter_domains_with_trie(domains, domain_suffixes):
     """
     使用 Trie 过滤掉被 domain_suffix 覆盖的 domain。
     :param domains: 需要去重的 domain 集合
     :param domain_suffixes: domain_suffix 集合
+    param domain_keywordes: domain_keyword 集合
     :return: 过滤后的 domains 和被过滤的数量
     """
     trie = Trie()
@@ -384,6 +412,10 @@ def filter_domains_with_trie(domains, domain_suffixes):
     # 统一插入 domain_suffix，去除前导 .
     for suffix in domain_suffixes:
         trie.insert(suffix)
+
+    # 统一插入 domain_keyword，去除前导 .
+    for suffix in domain_keywordes:
+        trie.insert(keyword)
 
     filtered_domains = set()  # 存储未被匹配的域名
     filtered_count = 0
