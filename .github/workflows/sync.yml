@@ -1,8 +1,6 @@
 name: Config Update
 
 on:
-  push: 
-    branches: [ main-use ]
   workflow_dispatch:
   schedule:
     - cron: '0 20 * * *'
